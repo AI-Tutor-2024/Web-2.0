@@ -1,4 +1,4 @@
-import { getFolderList } from "@/app/api/folder/getFolderList";
+import { getFolderList } from "@/app/api/folder";
 import { FolderListResponse } from "@/app/types/folder";
 import {
   useSuspenseQuery,

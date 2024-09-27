@@ -71,6 +71,7 @@ const Main = () => {
             </div>
           </div>
           <div className="grid grid-cols-5 gap-3 px-4">
+            {/* 모달 2개 뜨길래 하나 지우고 CTANewSection에서 관리 */}
             {/* {showModal && (
               <SectionModal onSave={handleSave} onClose={handleClose} />
             )} */}

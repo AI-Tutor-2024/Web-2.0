@@ -1,4 +1,5 @@
 "use client";
+import { postFolder } from "@/app/api/folder";
 import React, { useState } from "react";
 import SectionModal from "../modal/SectionModal";
 
@@ -14,7 +15,18 @@ const CTANewSection: React.FC<CTANewSectionProps> = ({ handleClick }) => {
     handleClick();
   };
 
-  const handleAddFolder = () => {
+  const handleAddFolder = async (subject: string, professor: string) => {
+    try {
+      const folderData = {
+        folderName: subject,
+        professorName: professor,
+      };
+
+      const result = await postFolder(folderData);
+      console.log("Folder created successfully:", result);
+    } catch (error) {
+      console.error("Error creating folder:", error);
+    }
     setShowModal(false);
   };
 
