@@ -27,3 +27,18 @@ export const postFolder = async ({
 
   return response.json();
 };
+
+export const deleteFolder = async (folderId: number) => {
+  const response = await fetch(baseURL + "api/v1/folder/" + folderId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create folder");
+  }
+
+  return response.json();
+};

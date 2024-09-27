@@ -63,8 +63,8 @@ const Main = () => {
                 key={index}
                 subject={section.folderName}
                 professor={section.professor}
+                folderId={section.folderId}
                 onEdit={(subject, professor) => console.log("test")}
-                onDelete={() => console.log("test")}
                 onClick={() => router.push("/createNotes")}
               />
             ))}
