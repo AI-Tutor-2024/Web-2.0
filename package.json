@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.56.2",
     "@types/next": "^9.0.0",
     "@types/react-dropzone": "^5.1.0",
     "@types/react-modal": "^3.16.3",

@@ -1,33 +1,30 @@
 "use client";
 
-import Lottie from "react-lottie-player";
-import lottieJson from "../../../../public/BouncingBall.json";
+import GoogleLoginCTA from "@/app/components/GoogleLoginCTA";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import GoogleLoginCTA from "@/app/components/GoogleLoginCTA";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import { useEffect, useState } from "react";
+import Lottie from "react-lottie-player";
+import lottieJson from "../../../../public/BouncingBall.json";
 
 const Home = () => {
-  
   const [isClient, setIsClient] = useState(false);
   const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    setIsClient(typeof window !== 'undefined');
+    setIsClient(typeof window !== "undefined");
   }, []);
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.push("/home");
+      router.push("/main");
     }
   }, [status]);
 
   return (
-
     <main className="w-full h-screen bg-bgGray flex flex-row">
       <section className="text-mainWhite w-full">
         <div className="fixed py-8 px-8">
