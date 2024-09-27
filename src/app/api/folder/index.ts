@@ -1,4 +1,4 @@
-import { PostFolderProps } from "@/app/types/folder";
+import { PatchFolderProps, PostFolderProps } from "@/app/types/folder";
 import { baseURL } from "..";
 
 export const getFolderList = async () => {
@@ -12,6 +12,29 @@ export const postFolder = async ({
 }: PostFolderProps) => {
   const response = await fetch(baseURL + "api/v1/folder/", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      folderName: folderName,
+      professorName: professorName,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create folder");
+  }
+
+  return response.json();
+};
+
+export const patchFolder = async ({
+  folderName,
+  professorName,
+  folderId,
+}: PatchFolderProps) => {
+  const response = await fetch(baseURL + "api/v1/folder/" + folderId, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },

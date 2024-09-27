@@ -1,26 +1,28 @@
 "use client";
+import { FolderListData } from "@/app/types/folder";
 import Image from "next/image";
 import React, { FormEvent, useState } from "react";
 
 interface SectionModalProps {
   onSave: (subject: string, professor: string) => Promise<void> | void;
   onClose: () => void;
-  initialSubject?: string;
-  initialProfessor?: string;
+  section?: FolderListData;
 }
 
 const SectionModal: React.FC<SectionModalProps> = ({
   onSave,
   onClose,
-  initialSubject = "",
-  initialProfessor = "",
+  section,
 }) => {
-  const [subject, setSubject] = useState(initialSubject);
-  const [professor, setProfessor] = useState(initialProfessor);
+  const initFolderName = section?.folderName || "";
+  const initProfessor = section?.professor || "";
+
+  const [subject, setSubject] = useState(initFolderName);
+  const [professor, setProfessor] = useState(initProfessor);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await onSave(subject, professor);
+    await onSave!(subject, professor);
     onClose();
   };
 

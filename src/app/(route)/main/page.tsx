@@ -61,10 +61,7 @@ const Main = () => {
             {sections.map((section, index) => (
               <SectionFolder
                 key={index}
-                subject={section.folderName}
-                professor={section.professor}
-                folderId={section.folderId}
-                onEdit={(subject, professor) => console.log("test")}
+                section={section}
                 onClick={() => router.push("/createNotes")}
               />
             ))}

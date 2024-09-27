@@ -1,23 +1,36 @@
 "use client";
-import { deleteFolder } from "@/app/api/folder";
+import { deleteFolder, patchFolder } from "@/app/api/folder";
+import { FolderListData } from "@/app/types/folder";
 import React, { useState } from "react";
 import SectionModal from "./SectionModal";
 
 interface SectionModifyProps {
-  folderId: number;
-  onEdit: (subject: string, professor: string) => void;
+  section: FolderListData;
   onDelete: () => void;
 }
 
-const SectionModify: React.FC<SectionModifyProps> = ({
-  folderId,
-  onEdit,
-  onDelete,
-}) => {
+const SectionModify: React.FC<SectionModifyProps> = ({ section, onDelete }) => {
   const [showModal, setShowModal] = useState(false);
 
+  const handleEditFolder = async (subject: string, professor: string) => {
+    try {
+      const folderData = {
+        folderId: section.folderId,
+        folderName: subject,
+        professorName: professor,
+      };
+
+      console.log(folderData);
+
+      const result = await patchFolder(folderData);
+      console.log("Folder created successfully:", result);
+    } catch (error) {
+      console.error("Error creating folder:", error);
+    }
+  };
+
   const handleDeleteFolder = async () => {
-    await deleteFolder(folderId);
+    await deleteFolder(section.folderId);
     onDelete();
   };
 
@@ -36,7 +49,11 @@ const SectionModify: React.FC<SectionModifyProps> = ({
         폴더 삭제하기
       </button>
       {showModal && (
-        <SectionModal onSave={onEdit} onClose={() => setShowModal(false)} />
+        <SectionModal
+          onSave={handleEditFolder}
+          onClose={() => setShowModal(false)}
+          section={section}
+        />
       )}
     </div>
   );

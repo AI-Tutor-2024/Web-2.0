@@ -1,23 +1,15 @@
 "use client";
+import { FolderListData } from "@/app/types/folder";
 import Image from "next/image";
 import React, { useState } from "react";
 import SectionModify from "../modal/SectionModify";
 
 interface SectionFolderProps {
-  subject: string;
-  professor: string;
-  folderId: number;
-  onEdit: (subject: string, professor: string) => void;
+  section: FolderListData;
   onClick: () => void; // onClick 속성 추가
 }
 
-const SectionFolder: React.FC<SectionFolderProps> = ({
-  subject,
-  professor,
-  folderId,
-  onEdit,
-  onClick,
-}) => {
+const SectionFolder: React.FC<SectionFolderProps> = ({ section, onClick }) => {
   const [showModify, setShowModify] = useState(false);
 
   const handleMenuClick = () => {
@@ -27,7 +19,6 @@ const SectionFolder: React.FC<SectionFolderProps> = ({
   return (
     <div className="relative items-center">
       <div onClick={onClick}>
-        {" "}
         {/* onClick 이벤트 추가 */}
         <Image
           src="/folder.svg"
@@ -40,10 +31,10 @@ const SectionFolder: React.FC<SectionFolderProps> = ({
       <div className="flex justify-between w-full px-3 mt-[-60px]">
         <div className="flex flex-col">
           <p className="font-Pretendard text-[20px] text-mainBlack">
-            {subject}
+            {section.folderName}
           </p>
           <p className="font-Pretendard text-[14px] text-mainBlack/[0.4]">
-            {professor}
+            {section.professor}
           </p>
         </div>
         <div className="flex flex-row gap-3">
@@ -58,11 +49,7 @@ const SectionFolder: React.FC<SectionFolderProps> = ({
           {showModify && (
             <div className="absolute right-[18px] top-[198px] mt-[-18px] rounded-[8px] shadow-2xl">
               <SectionModify
-                folderId={folderId}
-                onEdit={(subject: string, professor: string) => {
-                  onEdit(subject, professor);
-                  setShowModify(false);
-                }}
+                section={section}
                 onDelete={() => {
                   setShowModify(false);
                 }}
