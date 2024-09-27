@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Section } from '@/app/types/Section';
+import { FolderListData } from "@/app/types/folder";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
 
 interface SidebarProps {
-  sections: Section[];
+  sections: FolderListData[];
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ sections }) => {
@@ -26,25 +26,49 @@ const Sidebar: React.FC<SidebarProps> = ({ sections }) => {
           <div className="hover:bg-[#3c3c3c] active:bg-[#3c3c3c]">
             <Link href="/home">
               <div className="px-8 py-2 flex flex-row text-center gap-3">
-                <Image src="ic_side_home.svg" alt="logo" width={20} height={20} />
+                <Image
+                  src="ic_side_home.svg"
+                  alt="logo"
+                  width={20}
+                  height={20}
+                />
                 <p className="text-white">홈</p>
               </div>
             </Link>
           </div>
           <div className="flex flex-col">
-            <div className="px-8 py-2 flex flex-row text-center gap-3 cursor-pointer hover:bg-[#3c3c3c] active:bg-[#3c3c3c]" onClick={toggleSections}>
+            <div
+              className="px-8 py-2 flex flex-row text-center gap-3 cursor-pointer hover:bg-[#3c3c3c] active:bg-[#3c3c3c]"
+              onClick={toggleSections}
+            >
               <Image src="ic_side_all.svg" alt="logo" width={20} height={20} />
               <p className="text-white mr-8 flex-shrink-0">수강과목</p>
-              <Image src="arrow_sidebar.svg" alt="arrow" width={7} height={7} className={`invert transition-transform ${showSections ? 'rotate-90' : ''}`} />
+              <Image
+                src="arrow_sidebar.svg"
+                alt="arrow"
+                width={7}
+                height={7}
+                className={`invert transition-transform ${
+                  showSections ? "rotate-90" : ""
+                }`}
+              />
             </div>
-            {showSections && sections.map((section, index) => (
-              <Link key={index} href="/classNotes">
-                <div className="px-8 py-2 flex flex-row text-center gap-3 hover:bg-[#3c3c3c] cursor-pointer">
-                  <Image src="ic_side_folder.svg" alt="folder" width={20} height={20} />
-                  <p className="text-sm text-white flex-shrink-0">{section.subject}</p>
-                </div>
-              </Link>
-            ))}
+            {showSections &&
+              sections.map((section, index) => (
+                <Link key={index} href="/classNotes">
+                  <div className="px-8 py-2 flex flex-row text-center gap-3 hover:bg-[#3c3c3c] cursor-pointer">
+                    <Image
+                      src="ic_side_folder.svg"
+                      alt="folder"
+                      width={20}
+                      height={20}
+                    />
+                    <p className="text-sm text-white flex-shrink-0">
+                      {section.folderName}
+                    </p>
+                  </div>
+                </Link>
+              ))}
           </div>
         </div>
       </div>

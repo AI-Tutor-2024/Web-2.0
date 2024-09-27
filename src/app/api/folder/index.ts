@@ -25,5 +25,5 @@ export const postFolder = async ({
     throw new Error("Failed to create folder");
   }
 
-  return response.json(); // 서버의 응답을 JSON으로 반환
+  return response.json();
 };

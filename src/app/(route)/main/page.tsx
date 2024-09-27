@@ -5,47 +5,30 @@ import SectionFolder from "@/app/components/section/SectionFolder";
 import { useFolders } from "@/app/hooks/api/folder/useFolder";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const Main = () => {
-  const [sections, setSections] = useState<
-    { subject: string; professor: string; name: string }[]
-  >([]);
   const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    const storedSections = localStorage.getItem("sections");
-    if (storedSections) {
-      setSections(JSON.parse(storedSections));
-    }
-  }, []);
 
   const router = useRouter(); // useRouter 훅 사용
 
   const { data } = useFolders();
+  const sections = data.information;
 
-  useEffect(() => {
-    localStorage.setItem("sections", JSON.stringify(sections));
-  }, [sections]);
+  // useEffect(() => {
+  //   localStorage.setItem("sections", JSON.stringify(sections));
+  // }, [sections]);
 
-  const handleSave = (subject: string, professor: string) => {
-    setSections([...sections, { subject, professor, name: subject }]);
-    setShowModal(false);
-  };
-  const handleClose = () => {
-    setShowModal(false);
-  };
+  // const handleEdit = (index: number, subject: string, professor: string) => {
+  //   const updatedSections = sections.map((section, i) =>
+  //     i === index ? { subject, professor, name: subject } : section
+  //   );
+  //   setSections(updatedSections);
+  // };
 
-  const handleEdit = (index: number, subject: string, professor: string) => {
-    const updatedSections = sections.map((section, i) =>
-      i === index ? { subject, professor, name: subject } : section
-    );
-    setSections(updatedSections);
-  };
-
-  const handleDelete = (index: number) => {
-    const updatedSections = sections.filter((_, i) => i !== index);
-    setSections(updatedSections);
-  };
+  // const handleDelete = (index: number) => {
+  //   const updatedSections = sections.filter((_, i) => i !== index);
+  //   setSections(updatedSections);
+  // };
 
   return (
     <div className="flex flex-row bg-bgDeepGray">
@@ -78,12 +61,10 @@ const Main = () => {
             {sections.map((section, index) => (
               <SectionFolder
                 key={index}
-                subject={section.subject}
+                subject={section.folderName}
                 professor={section.professor}
-                onEdit={(subject, professor) =>
-                  handleEdit(index, subject, professor)
-                }
-                onDelete={() => handleDelete(index)}
+                onEdit={(subject, professor) => console.log("test")}
+                onDelete={() => console.log("test")}
                 onClick={() => router.push("/createNotes")}
               />
             ))}
