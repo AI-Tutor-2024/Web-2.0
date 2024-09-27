@@ -1,8 +1,7 @@
-import { ReactNode } from "react";
-import "./global.css";
 import { Inter } from "next/font/google";
+import { ReactNode } from "react";
 import ClientSessionProvider from "../app/components/ClientSessionProvider";
-import React from "react";
+import "./global.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -10,11 +9,7 @@ export const metadata = {
   description: "자기주도학습을 위한 AI Tutor 서비스",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>
