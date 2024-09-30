@@ -6,7 +6,7 @@ import SectionModify from "../modal/SectionModify";
 
 interface SectionFolderProps {
   section: FolderListData;
-  onClick: () => void; // onClick 속성 추가
+  onClick: (section: FolderListData) => void; // onClick 속성 추가
 }
 
 const SectionFolder: React.FC<SectionFolderProps> = ({ section, onClick }) => {
@@ -18,7 +18,7 @@ const SectionFolder: React.FC<SectionFolderProps> = ({ section, onClick }) => {
 
   return (
     <div className="relative items-center">
-      <div onClick={onClick}>
+      <div onClick={() => onClick(section)}>
         {/* onClick 이벤트 추가 */}
         <Image
           src="/folder.svg"

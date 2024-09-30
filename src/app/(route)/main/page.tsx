@@ -3,9 +3,11 @@ import CTANewSection from "@/app/components/button/CTANewSection";
 import Sidebar from "@/app/components/layout/Sidebar";
 import SectionFolder from "@/app/components/section/SectionFolder";
 import { useFolders } from "@/app/hooks/api/folder/useFolder";
+import useSections from "@/app/store/useSections";
+import { FolderListData } from "@/app/types/folder";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Main = () => {
   const [showModal, setShowModal] = useState(false);
 
@@ -13,10 +15,12 @@ const Main = () => {
 
   const { data } = useFolders();
   const sections = data.information;
+  const { setSections } = useSections();
 
-  // useEffect(() => {
-  //   localStorage.setItem("sections", JSON.stringify(sections));
-  // }, [sections]);
+  // sections 을 전역상태로 관리
+  useEffect(() => {
+    setSections(sections);
+  }, [data]);
 
   // const handleEdit = (index: number, subject: string, professor: string) => {
   //   const updatedSections = sections.map((section, i) =>
@@ -29,6 +33,12 @@ const Main = () => {
   //   const updatedSections = sections.filter((_, i) => i !== index);
   //   setSections(updatedSections);
   // };
+
+  const handleClickFolder = (section: FolderListData) => {
+    router.push(
+      `/createNotes?foldername=${section.folderName}&professor=${section.professor}`
+    );
+  };
 
   return (
     <div className="flex flex-row bg-bgDeepGray">
@@ -62,7 +72,7 @@ const Main = () => {
               <SectionFolder
                 key={index}
                 section={section}
-                onClick={() => router.push("/createNotes")}
+                onClick={() => handleClickFolder(section)}
               />
             ))}
           </div>
