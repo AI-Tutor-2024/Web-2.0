@@ -22,19 +22,19 @@ const NewNoteForm: React.FC<NewNoteFormProps> = ({
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
-    // setIsModalOpen(true);
-    // const formData = new FormData();
-    // formData.append("folder", form.folder);
-    // formData.append("professor", form.professor);
-    // if (file) {
-    //   formData.append("file", file);
-    // }
-    // await fetch("/api/upload", {
-    //   method: "POST",
-    //   body: formData,
-    // });
+  const handleSubmit = () => {
+    const target = {
+      name: "file",
+      value: file ? file.name : "",
+    } as HTMLInputElement;
+
+    if (handleChange) {
+      handleChange({
+        target, // { name: 'file', value: file ? file.name : "" } 객체를 target으로 사용
+      } as React.ChangeEvent<HTMLInputElement>);
+    }
+
+    onSubmit();
   };
 
   const closeModal = () => {
@@ -50,8 +50,8 @@ const NewNoteForm: React.FC<NewNoteFormProps> = ({
         </label>
         <input
           type="text"
-          name="file"
-          value={form.file}
+          name="noteName"
+          value={form.noteName}
           onChange={handleChange}
           placeholder="예) 캡스톤디자인 1주차"
           className="mt-1 block bg-bgGray text-mainWhite text-[22px] rounded-md py-1 pr-2 pl-0 outline-none"
@@ -153,7 +153,7 @@ const NewNoteForm: React.FC<NewNoteFormProps> = ({
       </div>
       <button
         type="submit"
-        onClick={onSubmit}
+        onClick={handleSubmit}
         className="h-[46px] flex flex-row gap-3 items-center w-fit flex-shrink-0 pl-4 pr-2 py-3 bg-[#3F3F3F] border-2 border-[#565656] rounded-[27px] hover:bg-[#282828] text-mainWhite hover:text-[#878787] justify-end ml-auto"
       >
         <p>다음</p>

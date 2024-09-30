@@ -30,7 +30,7 @@ const NewNoteQuestion = ({
     }));
   };
 
-  const handleCategoryChange = (category: "OX" | "shortAnswer") => {
+  const handleCategoryChange = (category: "OX" | "단답형") => {
     setForm((prev) => ({
       ...prev,
       category,
@@ -119,13 +119,11 @@ const NewNoteQuestion = ({
             )}
 
             <button
-              onClick={() => handleCategoryChange("shortAnswer")}
+              onClick={() => handleCategoryChange("단답형")}
               onMouseEnter={() => setShowShortAnswerModal(true)}
               onMouseLeave={() => setShowShortAnswerModal(false)}
               className={`w-fit p-2 h-[37px] text-white rounded-[16px] ${
-                form.category === "shortAnswer"
-                  ? "bg-[#05D686]"
-                  : "bg-[#3F3F3F]"
+                form.category === "단답형" ? "bg-[#05D686]" : "bg-[#3F3F3F]"
               }`}
             >
               단답형

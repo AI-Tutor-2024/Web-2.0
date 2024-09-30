@@ -1,9 +1,10 @@
 "use client";
 import Sidebar from "@/app/components/layout/Sidebar";
 import NewNoteForm from "@/app/components/notes/NewNoteForm";
+import NewNotePractice from "@/app/components/notes/NewNotePractice";
 import NewNoteQuestion from "@/app/components/notes/NewNoteQuestion";
 import useSections from "@/app/store/useSections";
-import { questionObject } from "@/app/types/note/question";
+import { PostPracticeProps, questionObject } from "@/app/types/note/question";
 import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
@@ -16,6 +17,7 @@ const NewNotePage: React.FC = () => {
     folder: foldername || "",
     professor: professor || "",
     lectureName: "",
+    noteName: "",
     file: "",
   });
 
@@ -50,10 +52,25 @@ const NewNotePage: React.FC = () => {
     });
   };
 
+  const handleNewPractice = async () => {
+    setNewNotePage("newContent");
+    const createPracticeReq: PostPracticeProps["createPracticeReq"] = {
+      practiceSize:
+        questionForm.questionNumberCategory === "input"
+          ? questionForm.questionNumber
+          : 0,
+      type: questionForm.category,
+      keywords: importantContent.keywords,
+      requirement: importantContent.requestment,
+    };
+
+    // const result = await postPractice({ createPracticeReq, file: form.file });
+  };
+
   return (
     <div className="flex flex-row bg-bgGray h-full">
       <Sidebar sections={sections} />
-      <div className="justify-between flex flex-col items-end w-full ">
+      <div className="justify-between flex flex-col w-full ">
         {/* 새로운 노트만들기 */}
         {newNotePage === "newNote" && (
           <NewNoteForm
@@ -74,11 +91,12 @@ const NewNotePage: React.FC = () => {
         </div> */}
         {newNotePage === "qeustion" && (
           <NewNoteQuestion
-            onSubmit={() => setNewNotePage("qeustion")}
+            onSubmit={handleNewPractice}
             form={questionForm}
             setForm={setQuestionForm}
           />
         )}
+        {newNotePage === "newContent" && <NewNotePractice form={form} />}
       </div>
     </div>
   );

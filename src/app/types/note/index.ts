@@ -1,4 +1,5 @@
 export interface Form {
+  noteName: string;
   folder: string;
   professor: string;
   lectureName: string;
